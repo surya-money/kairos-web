@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegis — Block distracting apps. Protect your focus.</title>
+<meta name="description" content="Aegis blocks distracting apps during a focus session. Start with a tap of your NFC tag. No streaks, no gamification. Coming to iOS.">
+<meta property="og:title" content="Aegis — Block distracting apps. Protect your focus.">
+<meta property="og:description" content="Aegis blocks distracting apps during a focus session. Start with a tap of your NFC tag. No streaks, no gamification. Coming to iOS.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --stone:         #F4F1EA;
+  --linen:         #E8E2D9;
+  --ash:           #C6C0B6;
+  --slate:         #7A7670;
+  --dusk:          #3D3C3A;
+  --ink:           #1A1917;
+  --aegean:        #6B8A9E;
+  --aegean-light:  #A8BFCC;
+  --aegean-pale:   #DAE5EC;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Geist', sans-serif;
+  --font-mono:    'Geist Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--stone);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s ease, border-bottom 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(26, 25, 23, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(198, 192, 182, 0.1);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  color: var(--stone);
+  line-height: 1;
+}
+.nav-byline {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  line-height: 1;
+}
+.nav-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-watermark {
+  position: absolute;
+  top: -40px;
+  right: -80px;
+  font-family: var(--font-display);
+  font-size: 560px;
+  font-style: italic;
+  color: rgba(107, 138, 158, 0.055);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aegean-light);
+  margin-bottom: 24px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 9vw, 128px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--stone);
+  margin-bottom: 32px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--aegean-light);
+}
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--slate);
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.hero-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--dusk);
+  margin-bottom: 32px;
+}
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  line-height: 2;
+}
+
+/* ── AEGIS CARD ── */
+.aegis-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(198, 192, 182, 0.12);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.aegis-icon-wrap {
+  width: 64px;
+  height: 64px;
+  background: var(--aegean);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aegis-card-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aegean-light);
+  margin-bottom: 6px;
+}
+.aegis-card-name {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--stone);
+  line-height: 1;
+}
+.aegis-card-greek {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--slate);
+  margin-top: 4px;
+}
+.aegis-card-desc {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--ash);
+}
+.app-store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 10px 16px;
+  text-decoration: none;
+  width: fit-content;
+}
+.badge-text { display: flex; flex-direction: column; }
+.badge-line1 {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+  line-height: 1;
+}
+.badge-line2 {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--stone);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+/* ── SECTION BASE ── */
+section { padding: 120px 48px; }
+
+/* ── PHILOSOPHY ── */
+.philosophy {
+  background: var(--stone);
+  color: var(--ink);
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 96px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 24px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.section-title em {
+  font-style: italic;
+  color: var(--aegean);
+}
+.philosophy-body { padding-top: 8px; }
+.philosophy-lead {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--dusk);
+  line-height: 1.5;
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+.philosophy-p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--slate);
+  max-width: 540px;
+  margin-bottom: 20px;
+}
+.time-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 40px;
+  max-width: 540px;
+}
+.time-card {
+  padding: 20px;
+  border-radius: 6px;
+}
+.time-card.chronos { background: var(--linen); }
+.time-card.kairos {
+  background: var(--aegean-pale);
+  border: 1px solid var(--aegean-light);
+}
+.time-card-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.time-card.chronos .time-card-label { color: var(--ash); }
+.time-card.kairos .time-card-label  { color: var(--aegean); }
+.time-card-greek {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.time-card.chronos .time-card-greek { color: var(--ash); }
+.time-card.kairos .time-card-greek  { color: var(--aegean); }
+.time-card-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--slate);
+}
+
+/* ── AEGIS FEATURE ── */
+.aegis-feature {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.aegis-bg-text {
+  position: absolute;
+  bottom: -60px;
+  left: -20px;
+  font-family: var(--font-display);
+  font-size: 320px;
+  font-style: italic;
+  color: rgba(107, 138, 158, 0.045);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.03em;
+}
+.aegis-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.aegis-feature-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aegean-light);
+  margin-bottom: 20px;
+}
+.aegis-feature-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--stone);
+  margin-bottom: 32px;
+}
+.aegis-feature-title em {
+  font-style: italic;
+  color: var(--aegean-light);
+}
+.aegis-feature-p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--slate);
+  max-width: 440px;
+  margin-bottom: 16px;
+}
+.feature-list {
+  list-style: none;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 440px;
+  border-top: 1px solid rgba(198,192,182,0.1);
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(198,192,182,0.1);
+}
+.feature-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--aegean);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+.feature-item-text {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ash);
+  line-height: 1.6;
+}
+.feature-item-text strong {
+  font-weight: 500;
+  color: var(--stone);
+}
+
+/* ── PHONE MOCKUP ── */
+.phone-mockup {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.phone-frame {
+  background: #111010;
+  border-radius: 44px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
+}
+.phone-screen {
+  background: var(--ink);
+  border-radius: 36px;
+  overflow: hidden;
+  aspect-ratio: 9/19.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 26px;
+  background: #111010;
+  border-radius: 20px;
+}
+.phone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+.phone-app-name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ash);
+}
+.phone-shield-wrap {
+  width: 72px;
+  height: 72px;
+  background: var(--aegean);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phone-timer {
+  font-family: var(--font-body);
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--stone);
+  line-height: 1;
+}
+.phone-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--slate);
+  letter-spacing: 0.04em;
+}
+.phone-nfc {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--aegean-light);
+  background: rgba(107,138,158,0.12);
+  border: 1px solid rgba(107,138,158,0.25);
+  border-radius: 100px;
+  padding: 6px 14px;
+}
+.phone-start-btn {
+  width: 100%;
+  background: var(--aegean);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--stone);
+}
+
+/* ── KAIROS NOTE ── */
+.kairos-note {
+  background: var(--stone);
+  padding: 64px 48px;
+}
+.kairos-note-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  border-top: 1px solid var(--linen);
+  padding-top: 40px;
+}
+.kairos-note-text {
+  font-size: 13px;
+  color: var(--ash);
+  line-height: 1.65;
+}
+.kairos-note-text a {
+  color: var(--slate);
+  text-decoration: underline;
+  text-decoration-color: var(--linen);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+.kairos-note-text a:hover { color: var(--aegean); }
+.kairos-note-mark {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 64px 48px;
+  border-top: 1px solid rgba(198, 192, 182, 0.08);
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-style: italic;
+  color: var(--dusk);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.footer-tagline em {
+  font-style: normal;
+  color: var(--aegean-light);
+}
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dusk);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 2;
+}
+.footer-meta a {
+  color: var(--slate);
+  text-decoration: underline;
+  text-decoration-color: rgba(122,118,112,0.4);
+  text-underline-offset: 3px;
+}
+.footer-greek {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-style: italic;
+  color: rgba(107,138,158,0.2);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .hero { padding: 0 24px 64px; }
+  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+  .hero-watermark { font-size: 280px; top: 60px; right: -40px; }
+  section { padding: 80px 24px; }
+  .philosophy-grid,
+  .aegis-feature-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .kairos-note { padding: 48px 24px; }
+  .kairos-note-inner { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 52 52" fill="none">
+      <rect width="52" height="52" rx="12" fill="#6B8A9E"/>
+      <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
+        stroke="#F4F1EA" stroke-width="2.8" fill="none"
+        stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="nav-wordmark">Aegis</span>
+      <span class="nav-byline">by Kairos</span>
+    </div>
+  </a>
+  <span class="nav-status">Coming to iOS · 2026</span>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-watermark" aria-hidden="true">αἰγίς</div>
+
+  <div class="hero-content">
+    <div>
+      <p class="hero-eyebrow reveal">Focus &amp; app blocking for iOS</p>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Block<br>the noise.<br><em>Protect<br>your focus.</em>
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        Aegis blocks distracting apps for the duration of a focus session. Start with a tap of your NFC tag. No streaks, no productivity scores, no notifications when you're done — just the work.
+      </p>
+      <div class="hero-divider reveal reveal-delay-3"></div>
+      <p class="hero-meta reveal reveal-delay-3">
+        Focus and app blocking for iOS · Coming 2026
+      </p>
+    </div>
+
+    <div class="aegis-card reveal reveal-delay-2">
+      <div class="aegis-icon-wrap">
+        <svg width="36" height="36" viewBox="0 0 52 52" fill="none">
+          <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
+            stroke="#F4F1EA" stroke-width="2.8" fill="none"
+            stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="aegis-card-label">iOS · Coming 2026</p>
+        <p class="aegis-card-name">Aegis</p>
+        <p class="aegis-card-greek">αἰγίς — the divine shield</p>
+      </div>
+      <p class="aegis-card-desc">
+        Block distracting apps during a focus session. Start deliberately with a physical NFC tag. The shield rises — nothing gets through until you bring it down.
+      </p>
+      <div class="app-store-badge" aria-label="Coming to the App Store">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#C6C0B6"/>
+          <path d="M9.5 6.5l7 5.5-7 5.5V6.5z" fill="#A8BFCC"/>
+        </svg>
+        <div class="badge-text">
+          <span class="badge-line1">Coming to the</span>
+          <span class="badge-line2">App Store</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy">
+  <div class="philosophy-grid">
+    <div class="reveal">
+      <p class="section-eyebrow">Why Aegis exists</p>
+      <h2 class="section-title">Two words<br>for <em>time.</em></h2>
+    </div>
+    <div class="philosophy-body">
+      <p class="philosophy-lead reveal">Your phone knows exactly how to pull you away from the thing you were doing.</p>
+      <p class="philosophy-p reveal reveal-delay-1">
+        The ancient Greeks had two words for time. Chronos — the relentless, quantitative tick of the clock. And Kairos — the qualitative moment. The right time. The instant that actually counts.
+      </p>
+      <p class="philosophy-p reveal reveal-delay-2">
+        Aegis exists to protect your Kairos moments from Chronos — from the apps, notifications, and feeds engineered to consume the minutes you meant to spend elsewhere. The block is enforced at the OS level. It can't be overridden by willpower alone. That's the point.
+      </p>
+      <div class="time-contrast reveal reveal-delay-3">
+        <div class="time-card chronos">
+          <p class="time-card-label">What it displaces</p>
+          <p class="time-card-greek">χρόνος</p>
+          <p class="time-card-desc">Endless scroll. Notification pull. The apps you open without meaning to.</p>
+        </div>
+        <div class="time-card kairos">
+          <p class="time-card-label">What it protects</p>
+          <p class="time-card-greek">καιρός</p>
+          <p class="time-card-desc">The session you set aside. The work that needed your full attention.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AEGIS FEATURE ── -->
+<section class="aegis-feature">
+  <div class="aegis-bg-text" aria-hidden="true">Aegis</div>
+  <div class="aegis-feature-grid">
+    <div>
+      <p class="aegis-feature-eyebrow reveal">How it works</p>
+      <h2 class="aegis-feature-title reveal reveal-delay-1">
+        The shield<br>is <em>real.</em>
+      </h2>
+      <p class="aegis-feature-p reveal reveal-delay-2">
+        Aegis uses Apple's Screen Time framework to block apps at the OS level. The boundary isn't a nudge or a reminder — it holds.
+      </p>
+      <p class="aegis-feature-p reveal reveal-delay-2">
+        Starting a session with a physical NFC tag transforms the moment from passive to deliberate. The tap is a small ceremony. You're crossing a threshold, not tapping glass.
+      </p>
+      <ul class="feature-list reveal reveal-delay-3">
+        <li class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-item-text"><strong>NFC ritual start.</strong> Tap a physical tag to begin. The same tag ends the session. One object, two moments of intention.</span>
+        </li>
+        <li class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-item-text"><strong>App blocking by category.</strong> Choose which apps the shield covers — social, entertainment, news, or specific picks. Enforced at the OS level via Screen Time.</span>
+        </li>
+        <li class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-item-text"><strong>Scheduled blocking.</strong> Set recurring focus blocks — morning work, evening wind-down — and the shield rises automatically at the right time.</span>
+        </li>
+        <li class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-item-text"><strong>Deliberate allowances.</strong> Set a small number of permitted check-ins per session. Each one is a conscious decision, not an unconscious reflex.</span>
+        </li>
+        <li class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-item-text"><strong>Session duration, shown once.</strong> At the end of a session, the time is shown — then it's gone. No history graphs, no streaks, no scores. The work is the reward.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phone-mockup reveal reveal-delay-2">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-content">
+            <span class="phone-app-name">Aegis</span>
+            <div class="phone-shield-wrap">
+              <svg width="38" height="38" viewBox="0 0 52 52" fill="none">
+                <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
+                  stroke="#F4F1EA" stroke-width="2.8" fill="none"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div style="text-align:center;">
+              <div class="phone-timer">25:00</div>
+              <div class="phone-label">session active</div>
+            </div>
+            <div class="phone-nfc">Tap your tag to begin</div>
+            <div class="phone-start-btn">Start session</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KAIROS NOTE ── -->
+<div class="kairos-note">
+  <div class="kairos-note-inner reveal">
+    <span class="kairos-note-mark">Part of the Kairos suite</span>
+    <p class="kairos-note-text">
+      Aegis is the first app in <a href="https://kairos.app" target="_blank" rel="noopener">Kairos</a> — a constellation of single-purpose tools for a more present life. More coming.
+    </p>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-tagline">Your focus,<br><em>protected.</em></p>
+      <p class="footer-meta">
+        Aegis by Kairos · 2026<br>
+        αἰγίς — the divine shield<br>
+        <a href="mailto:hello@kairos.app">hello@kairos.app</a>
+      </p>
+    </div>
+    <div class="footer-greek" aria-hidden="true">αἰγίς</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.hero .reveal').forEach(el => {
+  setTimeout(() => el.classList.add('visible'), 100);
+});
+</script>
+</body>
+</html>
