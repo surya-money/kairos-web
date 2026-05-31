@@ -88,12 +88,13 @@ nav.scrolled {
   color: var(--stone);
   line-height: 1;
 }
+/* FIX 1: nav byline lifted from dusk → slate so it's legible on dark bg */
 .nav-byline {
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--dusk);
+  color: var(--slate);
   line-height: 1;
 }
 .nav-status {
@@ -179,7 +180,7 @@ nav.scrolled {
   line-height: 2;
 }
 
-/* ── AEGIS CARD ── */
+/* ── AEGIS HERO CARD ── */
 .aegis-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(198, 192, 182, 0.12);
@@ -189,6 +190,7 @@ nav.scrolled {
   flex-direction: column;
   gap: 20px;
 }
+/* FIX 2: icon container stays 64×64, SVG scaled up to 48×48 so shield reads clearly */
 .aegis-icon-wrap {
   width: 64px;
   height: 64px;
@@ -315,10 +317,7 @@ section { padding: 120px 48px; }
   margin-top: 40px;
   max-width: 540px;
 }
-.time-card {
-  padding: 20px;
-  border-radius: 6px;
-}
+.time-card { padding: 20px; border-radius: 6px; }
 .time-card.chronos { background: var(--linen); }
 .time-card.kairos {
   background: var(--aegean-pale);
@@ -343,11 +342,7 @@ section { padding: 120px 48px; }
 }
 .time-card.chronos .time-card-greek { color: var(--ash); }
 .time-card.kairos .time-card-greek  { color: var(--aegean); }
-.time-card-desc {
-  font-size: 12px;
-  line-height: 1.55;
-  color: var(--slate);
-}
+.time-card-desc { font-size: 12px; line-height: 1.55; color: var(--slate); }
 
 /* ── AEGIS FEATURE ── */
 .aegis-feature {
@@ -370,7 +365,7 @@ section { padding: 120px 48px; }
 }
 .aegis-feature-grid {
   display: grid;
-  grid-template-columns: 1fr 440px;
+  grid-template-columns: 1fr 420px;
   gap: 80px;
   align-items: center;
   max-width: 1100px;
@@ -399,11 +394,12 @@ section { padding: 120px 48px; }
   font-style: italic;
   color: var(--aegean-light);
 }
+/* FIX 3: body paragraphs lifted from slate → ash for legibility on ink bg */
 .aegis-feature-p {
   font-size: 14px;
   font-weight: 300;
   line-height: 1.75;
-  color: var(--slate);
+  color: var(--ash);
   max-width: 440px;
   margin-bottom: 16px;
 }
@@ -442,99 +438,20 @@ section { padding: 120px 48px; }
   color: var(--stone);
 }
 
-/* ── PHONE MOCKUP ── */
-.phone-mockup {
+/* FIX 5: real app screenshot replaces CSS mockup */
+.app-screenshot-wrap {
   width: 100%;
-  max-width: 320px;
+  max-width: 380px;
   margin: 0 auto;
-}
-.phone-frame {
-  background: #111010;
-  border-radius: 44px;
-  padding: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
-}
-.phone-screen {
-  background: var(--ink);
-  border-radius: 36px;
-  overflow: hidden;
-  aspect-ratio: 9/19.5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 24px;
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.phone-notch {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 26px;
-  background: #111010;
-  border-radius: 20px;
-}
-.phone-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-}
-.phone-app-name {
-  font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--ash);
-}
-.phone-shield-wrap {
-  width: 72px;
-  height: 72px;
-  background: var(--aegean);
-  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.phone-timer {
-  font-family: var(--font-body);
-  font-size: 40px;
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  color: var(--stone);
-  line-height: 1;
-}
-.phone-label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--slate);
-  letter-spacing: 0.04em;
-}
-.phone-nfc {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--aegean-light);
-  background: rgba(107,138,158,0.12);
-  border: 1px solid rgba(107,138,158,0.25);
-  border-radius: 100px;
-  padding: 6px 14px;
-}
-.phone-start-btn {
+.app-screenshot {
   width: 100%;
-  background: var(--aegean);
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--stone);
+  height: auto;
+  display: block;
+  border-radius: 8px;
 }
 
 /* ── KAIROS NOTE ── */
@@ -630,7 +547,8 @@ footer {
   .hero-watermark { font-size: 280px; top: 60px; right: -40px; }
   section { padding: 80px 24px; }
   .philosophy-grid,
-  .aegis-feature-grid { grid-template-columns: 1fr; gap: 40px; }
+  .aegis-feature-grid { grid-template-columns: 1fr; gap: 48px; }
+  .app-screenshot-wrap { max-width: 300px; }
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
   .kairos-note { padding: 48px 24px; }
   .kairos-note-inner { flex-direction: column; gap: 12px; }
@@ -676,8 +594,9 @@ footer {
     </div>
 
     <div class="aegis-card reveal reveal-delay-2">
+      <!-- FIX 2: SVG scaled to 48×48 so shield path fills the container legibly -->
       <div class="aegis-icon-wrap">
-        <svg width="36" height="36" viewBox="0 0 52 52" fill="none">
+        <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
           <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
             stroke="#F4F1EA" stroke-width="2.8" fill="none"
             stroke-linejoin="round" stroke-linecap="round"/>
@@ -688,8 +607,9 @@ footer {
         <p class="aegis-card-name">Aegis</p>
         <p class="aegis-card-greek">αἰγίς — the divine shield</p>
       </div>
+      <!-- FIX 4: description trimmed by one sentence to reduce density -->
       <p class="aegis-card-desc">
-        Block distracting apps during a focus session. Start deliberately with a physical NFC tag. The shield rises — nothing gets through until you bring it down.
+        Block distracting apps during a focus session. The shield rises — nothing gets through until you bring it down.
       </p>
       <div class="app-store-badge" aria-label="Coming to the App Store">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -775,28 +695,13 @@ footer {
       </ul>
     </div>
 
-    <div class="phone-mockup reveal reveal-delay-2">
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="phone-notch"></div>
-          <div class="phone-content">
-            <span class="phone-app-name">Aegis</span>
-            <div class="phone-shield-wrap">
-              <svg width="38" height="38" viewBox="0 0 52 52" fill="none">
-                <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
-                  stroke="#F4F1EA" stroke-width="2.8" fill="none"
-                  stroke-linejoin="round" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div style="text-align:center;">
-              <div class="phone-timer">25:00</div>
-              <div class="phone-label">session active</div>
-            </div>
-            <div class="phone-nfc">Tap your tag to begin</div>
-            <div class="phone-start-btn">Start session</div>
-          </div>
-        </div>
-      </div>
+    <!-- FIX 5: real app screenshot replaces CSS-drawn phone mockup -->
+    <div class="app-screenshot-wrap reveal reveal-delay-2">
+      <img
+        src="assets/aegis_appstore_1_home.png"
+        alt="Aegis app — session screen showing a 45-minute timer with app blocking active"
+        class="app-screenshot"
+      >
     </div>
   </div>
 </section>
