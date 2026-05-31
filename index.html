@@ -454,42 +454,6 @@ section { padding: 120px 48px; }
   border-radius: 8px;
 }
 
-/* ── KAIROS NOTE ── */
-.kairos-note {
-  background: var(--stone);
-  padding: 64px 48px;
-}
-.kairos-note-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  border-top: 1px solid var(--linen);
-  padding-top: 40px;
-}
-.kairos-note-text {
-  font-size: 13px;
-  color: var(--ash);
-  line-height: 1.65;
-}
-.kairos-note-text a {
-  color: var(--slate);
-  text-decoration: underline;
-  text-decoration-color: var(--linen);
-  text-underline-offset: 3px;
-  transition: color 0.15s ease;
-}
-.kairos-note-text a:hover { color: var(--aegean); }
-.kairos-note-mark {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ash);
-  white-space: nowrap;
-}
-
 /* ── FOOTER ── */
 footer {
   background: var(--ink);
@@ -530,6 +494,20 @@ footer {
   text-decoration-color: rgba(122,118,112,0.4);
   text-underline-offset: 3px;
 }
+.footer-suite {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--dusk);
+  line-height: 1.65;
+  margin-top: 20px;
+  max-width: 340px;
+}
+.footer-suite a {
+  color: var(--slate);
+  text-decoration: underline;
+  text-decoration-color: rgba(122,118,112,0.3);
+  text-underline-offset: 3px;
+}
 .footer-greek {
   font-family: var(--font-display);
   font-size: 64px;
@@ -550,8 +528,6 @@ footer {
   .aegis-feature-grid { grid-template-columns: 1fr; gap: 48px; }
   .app-screenshot-wrap { max-width: 300px; }
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
-  .kairos-note { padding: 48px 24px; }
-  .kairos-note-inner { flex-direction: column; gap: 12px; }
 }
 </style>
 </head>
@@ -706,16 +682,6 @@ footer {
   </div>
 </section>
 
-<!-- ── KAIROS NOTE ── -->
-<div class="kairos-note">
-  <div class="kairos-note-inner reveal">
-    <span class="kairos-note-mark">Part of the Kairos suite</span>
-    <p class="kairos-note-text">
-      Aegis is the first app in <a href="https://kairos.app" target="_blank" rel="noopener">Kairos</a> — a constellation of single-purpose tools for a more present life. More coming.
-    </p>
-  </div>
-</div>
-
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
@@ -725,6 +691,9 @@ footer {
         Aegis by Kairos · 2026<br>
         αἰγίς — the divine shield<br>
         <a href="mailto:hello@kairos.app">hello@kairos.app</a>
+      </p>
+      <p class="footer-suite">
+        Aegis is the first app in <a href="https://kairos.app" target="_blank" rel="noopener">Kairos</a> — a constellation of single-purpose tools for a more present life. More coming.
       </p>
     </div>
     <div class="footer-greek" aria-hidden="true">αἰγίς</div>
