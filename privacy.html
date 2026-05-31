@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Aegis</title>
+<meta name="description" content="Aegis does not collect, store, or transmit your personal data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --stone:         #F4F1EA;
+  --linen:         #E8E2D9;
+  --ash:           #C6C0B6;
+  --slate:         #7A7670;
+  --dusk:          #3D3C3A;
+  --ink:           #1A1917;
+  --aegean:        #6B8A9E;
+  --aegean-light:  #A8BFCC;
+  --aegean-pale:   #DAE5EC;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Geist', sans-serif;
+  --font-mono:    'Geist Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--stone);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s ease, border-bottom 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(26, 25, 23, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(198, 192, 182, 0.1);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  color: var(--stone);
+  line-height: 1;
+}
+.nav-byline {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  line-height: 1;
+}
+.nav-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+/* ── PAGE ── */
+.privacy-page {
+  background: var(--stone);
+  min-height: 100vh;
+  padding: 140px 48px 120px;
+}
+
+.privacy-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.privacy-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.privacy-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 48px;
+}
+
+/* ── INTRO ── */
+.privacy-intro {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--slate);
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--linen);
+  margin-bottom: 0;
+}
+
+/* ── SECTIONS ── */
+.privacy-section {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--linen);
+}
+
+.privacy-section h2 {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.privacy-section p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--slate);
+}
+
+/* ── CONTACT ── */
+.privacy-contact {
+  padding: 28px 0 0;
+}
+
+.privacy-contact h2 {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.privacy-contact p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--slate);
+}
+
+.privacy-contact a {
+  color: var(--aegean);
+  text-decoration: underline;
+  text-decoration-color: var(--aegean-light);
+  text-underline-offset: 3px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 64px 48px;
+  border-top: 1px solid rgba(198, 192, 182, 0.08);
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-style: italic;
+  color: var(--dusk);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.footer-tagline em {
+  font-style: normal;
+  color: var(--aegean-light);
+}
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dusk);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 2;
+}
+.footer-meta a {
+  color: var(--slate);
+  text-decoration: underline;
+  text-decoration-color: rgba(122,118,112,0.4);
+  text-underline-offset: 3px;
+}
+.footer-greek {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-style: italic;
+  color: rgba(107,138,158,0.2);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .privacy-page { padding: 120px 24px 80px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 52 52" fill="none">
+      <rect width="52" height="52" rx="12" fill="#6B8A9E"/>
+      <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
+        stroke="#F4F1EA" stroke-width="2.8" fill="none"
+        stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="nav-wordmark">Aegis</span>
+      <span class="nav-byline">by Kairos</span>
+    </div>
+  </a>
+  <span class="nav-status">Coming to iOS · 2026</span>
+</nav>
+
+<!-- ── CONTENT ── -->
+<main class="privacy-page">
+  <div class="privacy-inner">
+
+    <h1 class="privacy-title">Privacy Policy</h1>
+    <p class="privacy-date">Last updated: June 2026</p>
+
+    <p class="privacy-intro">
+      Aegis is built to do one thing: protect your focus. It does not collect, store, or transmit your personal data.
+    </p>
+
+    <div class="privacy-section">
+      <h2>What Aegis collects</h2>
+      <p>Nothing. Aegis does not have an account system, does not require a login, and does not collect any personal information.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Screen Time</h2>
+      <p>Aegis uses Apple's Screen Time framework (FamilyControls, ManagedSettings, and DeviceActivity) to block apps during a focus session. All Screen Time data is managed entirely on your device by iOS. Aegis never reads, stores, or transmits your Screen Time data.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>NFC</h2>
+      <p>If you use an NFC tag to start and end sessions, the tag interaction happens entirely on your device. No tag data is read beyond the trigger signal, and nothing is stored or transmitted.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Session data</h2>
+      <p>Aegis does not record session history. When a session ends, it ends. No data about your sessions is stored on-device or sent anywhere.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>Analytics and third parties</h2>
+      <p>Aegis contains no analytics, no third-party SDKs, and no advertising. No data is shared with any third party.</p>
+    </div>
+
+    <div class="privacy-contact">
+      <h2>Contact</h2>
+      <p>Questions about this policy: <a href="mailto:hello@kairos.app">hello@kairos.app</a></p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-tagline">Your focus,<br><em>protected.</em></p>
+      <p class="footer-meta">
+        Aegis by Kairos · 2026<br>
+        αἰγίς — the divine shield<br>
+        <a href="mailto:hello@kairos.app">hello@kairos.app</a>
+      </p>
+    </div>
+    <div class="footer-greek" aria-hidden="true">αἰγίς</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+</script>
+</body>
+</html>
