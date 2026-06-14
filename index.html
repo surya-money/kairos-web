@@ -10,20 +10,23 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<!-- Cormorant Garamond replaces Instrument Serif (banned by name per design-taste rules) -->
+<!-- Serif justified: brand identity is grounded in ancient Greek mythology (Aegis, Kairos, Chronos) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --stone:         #F4F1EA;
-  --linen:         #E8E2D9;
-  --ash:           #C6C0B6;
-  --slate:         #7A7670;
-  --dusk:          #3D3C3A;
-  --ink:           #1A1917;
-  --aegean:        #6B8A9E;
-  --aegean-light:  #A8BFCC;
-  --aegean-pale:   #DAE5EC;
+  --stone:        #F4F1EA;
+  --linen:        #E8E2D9;
+  --ash:          #C6C0B6;
+  --slate:        #7A7670;
+  --dusk:         #3D3C3A;
+  --ink:          #1A1917;
+  --ink-raised:   #222120;
+  --aegean:       #6B8A9E;
+  --aegean-light: #A8BFCC;
+  --aegean-pale:  #DAE5EC;
 
-  --font-display: 'Instrument Serif', serif;
+  --font-display: 'Cormorant Garamond', serif;
   --font-body:    'Geist', sans-serif;
   --font-mono:    'Geist Mono', monospace;
 }
@@ -51,7 +54,10 @@ body {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ── NAV ── */
 nav {
@@ -88,7 +94,6 @@ nav.scrolled {
   color: var(--stone);
   line-height: 1;
 }
-/* FIX 1: nav byline lifted from dusk → slate so it's legible on dark bg */
 .nav-byline {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -115,19 +120,6 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
 }
-.hero-watermark {
-  position: absolute;
-  top: -40px;
-  right: -80px;
-  font-family: var(--font-display);
-  font-size: 560px;
-  font-style: italic;
-  color: rgba(107, 138, 158, 0.055);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: -0.04em;
-}
 .hero-content {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -146,12 +138,13 @@ nav.scrolled {
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(72px, 9vw, 128px);
+  font-size: clamp(64px, 8vw, 112px);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 0.94;
   letter-spacing: -0.03em;
   color: var(--stone);
   margin-bottom: 32px;
+  padding-bottom: 4px;
 }
 .hero-title em {
   font-style: italic;
@@ -163,21 +156,6 @@ nav.scrolled {
   line-height: 1.65;
   color: var(--slate);
   max-width: 480px;
-  margin-bottom: 40px;
-}
-.hero-divider {
-  width: 40px;
-  height: 1px;
-  background: var(--dusk);
-  margin-bottom: 32px;
-}
-.hero-meta {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--dusk);
-  line-height: 2;
 }
 
 /* ── AEGIS HERO CARD ── */
@@ -190,7 +168,6 @@ nav.scrolled {
   flex-direction: column;
   gap: 20px;
 }
-/* FIX 2: icon container stays 64×64, SVG scaled up to 48×48 so shield reads clearly */
 .aegis-icon-wrap {
   width: 64px;
   height: 64px;
@@ -221,6 +198,7 @@ nav.scrolled {
   font-style: italic;
   color: var(--slate);
   margin-top: 4px;
+  padding-bottom: 2px;
 }
 .aegis-card-desc {
   font-size: 13px;
@@ -267,9 +245,10 @@ nav.scrolled {
 section { padding: 120px 48px; }
 
 /* ── PHILOSOPHY ── */
+/* Dark raised surface — preserves page theme lock, no more warm-paper sandwich */
 .philosophy {
-  background: var(--stone);
-  color: var(--ink);
+  background: var(--ink-raised);
+  color: var(--stone);
 }
 .philosophy-grid {
   display: grid;
@@ -278,41 +257,35 @@ section { padding: 120px 48px; }
   max-width: 1100px;
   margin: 0 auto;
 }
-.section-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ash);
-  margin-bottom: 24px;
-}
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(44px, 5vw, 64px);
   font-weight: 400;
   line-height: 1.0;
   letter-spacing: -0.025em;
-  color: var(--ink);
+  color: var(--stone);
+  padding-bottom: 4px;
 }
 .section-title em {
   font-style: italic;
-  color: var(--aegean);
+  color: var(--aegean-light);
 }
 .philosophy-body { padding-top: 8px; }
 .philosophy-lead {
   font-family: var(--font-display);
   font-size: 22px;
   font-style: italic;
-  color: var(--dusk);
+  color: var(--ash);
   line-height: 1.5;
   margin-bottom: 32px;
   max-width: 520px;
+  padding-bottom: 2px;
 }
 .philosophy-p {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.75;
-  color: var(--slate);
+  color: var(--ash);
   max-width: 540px;
   margin-bottom: 20px;
 }
@@ -324,10 +297,13 @@ section { padding: 120px 48px; }
   max-width: 540px;
 }
 .time-card { padding: 20px; border-radius: 6px; }
-.time-card.chronos { background: var(--linen); }
+.time-card.chronos {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(198,192,182,0.08);
+}
 .time-card.kairos {
-  background: var(--aegean-pale);
-  border: 1px solid var(--aegean-light);
+  background: rgba(107,138,158,0.1);
+  border: 1px solid rgba(107,138,158,0.3);
 }
 .time-card-label {
   font-family: var(--font-mono);
@@ -337,7 +313,7 @@ section { padding: 120px 48px; }
   margin-bottom: 8px;
 }
 .time-card.chronos .time-card-label { color: var(--ash); }
-.time-card.kairos .time-card-label  { color: var(--aegean); }
+.time-card.kairos .time-card-label  { color: var(--aegean-light); }
 .time-card-greek {
   font-family: var(--font-display);
   font-size: 26px;
@@ -345,29 +321,15 @@ section { padding: 120px 48px; }
   letter-spacing: -0.01em;
   line-height: 1;
   margin-bottom: 8px;
+  padding-bottom: 2px;
 }
 .time-card.chronos .time-card-greek { color: var(--ash); }
-.time-card.kairos .time-card-greek  { color: var(--aegean); }
-.time-card-desc { font-size: 12px; line-height: 1.55; color: var(--slate); }
+.time-card.kairos .time-card-greek  { color: var(--aegean-light); }
+.time-card-desc { font-size: 12px; line-height: 1.55; color: var(--ash); }
 
 /* ── AEGIS FEATURE ── */
 .aegis-feature {
   background: var(--ink);
-  position: relative;
-  overflow: hidden;
-}
-.aegis-bg-text {
-  position: absolute;
-  bottom: -60px;
-  left: -20px;
-  font-family: var(--font-display);
-  font-size: 320px;
-  font-style: italic;
-  color: rgba(107, 138, 158, 0.045);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: -0.03em;
 }
 .aegis-feature-grid {
   display: grid;
@@ -376,16 +338,6 @@ section { padding: 120px 48px; }
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-.aegis-feature-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--aegean-light);
-  margin-bottom: 20px;
 }
 .aegis-feature-title {
   font-family: var(--font-display);
@@ -395,12 +347,12 @@ section { padding: 120px 48px; }
   letter-spacing: -0.03em;
   color: var(--stone);
   margin-bottom: 32px;
+  padding-bottom: 4px;
 }
 .aegis-feature-title em {
   font-style: italic;
   color: var(--aegean-light);
 }
-/* FIX 3: body paragraphs lifted from slate → ash for legibility on ink bg */
 .aegis-feature-p {
   font-size: 14px;
   font-weight: 300;
@@ -409,42 +361,43 @@ section { padding: 120px 48px; }
   max-width: 440px;
   margin-bottom: 16px;
 }
-.feature-list {
-  list-style: none;
+
+/* ── FEATURE GRID (replaces dot-list with border-per-row) ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
   margin-top: 36px;
+  max-width: 480px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(198,192,182,0.1);
+  border: 1px solid rgba(198,192,182,0.1);
+}
+.feature-card {
+  padding: 18px 16px;
+  background: var(--ink);
   display: flex;
   flex-direction: column;
-  gap: 0;
-  max-width: 440px;
-  border-top: 1px solid rgba(198,192,182,0.1);
+  gap: 6px;
 }
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(198,192,182,0.1);
+.feature-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
-.feature-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--aegean);
-  margin-top: 7px;
-  flex-shrink: 0;
-}
-.feature-item-text {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--ash);
-  line-height: 1.6;
-}
-.feature-item-text strong {
+.feature-card-title {
+  font-size: 12px;
   font-weight: 500;
   color: var(--stone);
+  line-height: 1.3;
+}
+.feature-card-desc {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ash);
 }
 
-/* FIX 5: real app screenshot replaces CSS mockup */
+/* ── APP SCREENSHOT ── */
 .app-screenshot-wrap {
   width: 100%;
   max-width: 380px;
@@ -469,9 +422,6 @@ footer {
 .footer-inner {
   max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
 }
 .footer-tagline {
   font-family: var(--font-display);
@@ -481,6 +431,7 @@ footer {
   letter-spacing: -0.02em;
   line-height: 1.2;
   margin-bottom: 16px;
+  padding-bottom: 4px;
 }
 .footer-tagline em {
   font-style: normal;
@@ -514,26 +465,17 @@ footer {
   text-decoration-color: rgba(122,118,112,0.3);
   text-underline-offset: 3px;
 }
-.footer-greek {
-  font-family: var(--font-display);
-  font-size: 64px;
-  font-style: italic;
-  color: rgba(107,138,158,0.2);
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav { padding: 16px 24px; }
   .hero { padding: 0 24px 64px; }
   .hero-content { grid-template-columns: 1fr; gap: 48px; }
-  .hero-watermark { font-size: 280px; top: 60px; right: -40px; }
   section { padding: 80px 24px; }
   .philosophy-grid,
   .aegis-feature-grid { grid-template-columns: 1fr; gap: 48px; }
   .app-screenshot-wrap { max-width: 300px; }
-  .footer-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .feature-grid { max-width: 100%; }
 }
 </style>
 </head>
@@ -556,27 +498,24 @@ footer {
   <span class="nav-status">Available on iOS</span>
 </nav>
 
+<!-- sentinel for nav scroll detection (replaces banned window.addEventListener scroll) -->
+<div id="nav-sentinel" style="position:absolute;top:60px;height:1px;width:1px;pointer-events:none;" aria-hidden="true"></div>
+
 <!-- ── HERO ── -->
 <section class="hero" id="hero">
-  <div class="hero-watermark" aria-hidden="true">αἰγίς</div>
-
   <div class="hero-content">
     <div>
+      <!-- one eyebrow for the whole page (3-section page allows ceil(3/3)=1) -->
       <p class="hero-eyebrow reveal">Focus &amp; app blocking for iOS</p>
       <h1 class="hero-title reveal reveal-delay-1">
-        Block<br>the noise.<br><em>Protect<br>your focus.</em>
+        Block the noise.<br><em>Protect your focus.</em>
       </h1>
       <p class="hero-sub reveal reveal-delay-2">
-        Aegis blocks distracting apps for the duration of a focus session. Start with a tap of your NFC tag. No streaks, no productivity scores, no notifications when you're done — just the work.
-      </p>
-      <div class="hero-divider reveal reveal-delay-3"></div>
-      <p class="hero-meta reveal reveal-delay-3">
-        Focus and app blocking for iOS
+        Aegis blocks distracting apps for a focus session. Tap your NFC tag to start. No streaks, no scores.
       </p>
     </div>
 
     <div class="aegis-card reveal reveal-delay-2">
-      <!-- FIX 2: SVG scaled to 48×48 so shield path fills the container legibly -->
       <div class="aegis-icon-wrap">
         <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
           <path d="M26 8 L14 14 L14 31 Q14 40 26 44 Q38 40 38 31 L38 14 Z"
@@ -587,11 +526,10 @@ footer {
       <div>
         <p class="aegis-card-label">iOS</p>
         <p class="aegis-card-name">Aegis</p>
-        <p class="aegis-card-greek">αἰγίς — the divine shield</p>
+        <p class="aegis-card-greek">αἰγίς, the divine shield</p>
       </div>
-      <!-- FIX 4: description trimmed by one sentence to reduce density -->
       <p class="aegis-card-desc">
-        Block distracting apps during a focus session. The shield rises — nothing gets through until you bring it down.
+        Block distracting apps during a focus session. The shield rises. Nothing gets through until you bring it down.
       </p>
       <a class="app-store-badge" href="https://apps.apple.com/us/app/aegis-guard/id6763898088" target="_blank" rel="noopener" aria-label="Download on the App Store">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -607,19 +545,19 @@ footer {
 </section>
 
 <!-- ── PHILOSOPHY ── -->
+<!-- Dark raised surface (#222120) keeps page theme lock intact -->
 <section class="philosophy">
   <div class="philosophy-grid">
     <div class="reveal">
-      <p class="section-eyebrow">Why Aegis exists</p>
       <h2 class="section-title">Two words<br>for <em>time.</em></h2>
     </div>
     <div class="philosophy-body">
       <p class="philosophy-lead reveal">Your phone knows exactly how to pull you away from the thing you were doing.</p>
       <p class="philosophy-p reveal reveal-delay-1">
-        The ancient Greeks had two words for time. Chronos — the relentless, quantitative tick of the clock. And Kairos — the qualitative moment. The right time. The instant that actually counts.
+        The ancient Greeks had two words for time. Chronos - the relentless, quantitative tick of the clock. And Kairos - the qualitative moment. The right time. The instant that actually counts.
       </p>
       <p class="philosophy-p reveal reveal-delay-2">
-        Aegis exists to protect your Kairos moments from Chronos — from the apps, notifications, and feeds engineered to consume the minutes you meant to spend elsewhere. The block is enforced at the OS level. It can't be overridden by willpower alone. That's the point.
+        Aegis exists to protect your Kairos moments from Chronos - from the apps, notifications, and feeds engineered to consume the minutes you meant to spend elsewhere. The block is enforced at the OS level. It can't be overridden by willpower alone. That's the point.
       </p>
       <div class="time-contrast reveal reveal-delay-3">
         <div class="time-card chronos">
@@ -639,48 +577,46 @@ footer {
 
 <!-- ── AEGIS FEATURE ── -->
 <section class="aegis-feature">
-  <div class="aegis-bg-text" aria-hidden="true">Aegis</div>
   <div class="aegis-feature-grid">
     <div>
-      <p class="aegis-feature-eyebrow reveal">How it works</p>
-      <h2 class="aegis-feature-title reveal reveal-delay-1">
+      <h2 class="aegis-feature-title reveal">
         The shield<br>is <em>real.</em>
       </h2>
-      <p class="aegis-feature-p reveal reveal-delay-2">
-        Aegis uses Apple's Screen Time framework to block apps at the OS level. The boundary isn't a nudge or a reminder — it holds.
+      <p class="aegis-feature-p reveal reveal-delay-1">
+        Aegis uses Apple's Screen Time framework to block apps at the OS level. The boundary isn't a nudge or a reminder - it holds.
       </p>
-      <p class="aegis-feature-p reveal reveal-delay-2">
+      <p class="aegis-feature-p reveal reveal-delay-1">
         Starting a session with a physical NFC tag transforms the moment from passive to deliberate. The tap is a small ceremony. You're crossing a threshold, not tapping glass.
       </p>
-      <ul class="feature-list reveal reveal-delay-3">
-        <li class="feature-item">
-          <div class="feature-dot"></div>
-          <span class="feature-item-text"><strong>NFC ritual start.</strong> Tap a physical tag to begin. The same tag ends the session. One object, two moments of intention.</span>
-        </li>
-        <li class="feature-item">
-          <div class="feature-dot"></div>
-          <span class="feature-item-text"><strong>App blocking by category.</strong> Choose which apps the shield covers — social, entertainment, news, or specific picks. Enforced at the OS level via Screen Time.</span>
-        </li>
-        <li class="feature-item">
-          <div class="feature-dot"></div>
-          <span class="feature-item-text"><strong>Scheduled blocking.</strong> Set recurring focus blocks — morning work, evening wind-down — and the shield rises automatically at the right time.</span>
-        </li>
-        <li class="feature-item">
-          <div class="feature-dot"></div>
-          <span class="feature-item-text"><strong>Deliberate allowances.</strong> Set a small number of permitted check-ins per session. Each one is a conscious decision, not an unconscious reflex.</span>
-        </li>
-        <li class="feature-item">
-          <div class="feature-dot"></div>
-          <span class="feature-item-text"><strong>Session duration, shown once.</strong> At the end of a session, the time is shown — then it's gone. No history graphs, no streaks, no scores. The work is the reward.</span>
-        </li>
-      </ul>
+      <!-- feature grid replaces dot-list with border-per-row (both banned patterns) -->
+      <div class="feature-grid reveal reveal-delay-2">
+        <div class="feature-card">
+          <p class="feature-card-title">NFC ritual start</p>
+          <p class="feature-card-desc">Tap a physical tag to begin. The same tag ends the session. One object, two moments of intention.</p>
+        </div>
+        <div class="feature-card">
+          <p class="feature-card-title">App blocking by category</p>
+          <p class="feature-card-desc">Choose which apps the shield covers: social, entertainment, news, or specific picks. Enforced at the OS level via Screen Time.</p>
+        </div>
+        <div class="feature-card">
+          <p class="feature-card-title">Scheduled blocking</p>
+          <p class="feature-card-desc">Set recurring focus blocks for morning work and evening wind-down. The shield rises automatically.</p>
+        </div>
+        <div class="feature-card">
+          <p class="feature-card-title">Deliberate allowances</p>
+          <p class="feature-card-desc">Set a small number of permitted check-ins per session. Each one is a conscious decision, not a reflex.</p>
+        </div>
+        <div class="feature-card">
+          <p class="feature-card-title">Session duration, shown once</p>
+          <p class="feature-card-desc">At the end of a session, the time is shown. Then it's gone. No history graphs, no streaks, no scores.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- FIX 5: real app screenshot replaces CSS-drawn phone mockup -->
     <div class="app-screenshot-wrap reveal reveal-delay-2">
       <img
         src="assets/aegis_phone_framed.png"
-        alt="Aegis app — session screen showing a 45-minute timer with app blocking active"
+        alt="Aegis app - session screen showing a 45-minute timer with app blocking active"
         class="app-screenshot"
       >
     </div>
@@ -690,35 +626,37 @@ footer {
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
-    <div>
-      <p class="footer-tagline">Your focus,<br><em>protected.</em></p>
-      <p class="footer-meta">
-        Aegis by Kairos · 2026<br>
-        αἰγίς — the divine shield<br>
-        <a href="mailto:hello@kairos.app">hello@kairos.app</a>
-      </p>
-      <p class="footer-suite">
-        Aegis is the first app in <a href="https://kairos.app" target="_blank" rel="noopener">Kairos</a> — a constellation of single-purpose tools for a more present life. More coming.
-      </p>
-    </div>
-    <div class="footer-greek" aria-hidden="true">αἰγίς</div>
+    <p class="footer-tagline">Your focus,<br><em>protected.</em></p>
+    <p class="footer-meta">
+      Aegis by Kairos · 2026<br>
+      αἰγίς, the divine shield<br>
+      <a href="mailto:hello@kairos.app">hello@kairos.app</a>
+    </p>
+    <p class="footer-suite">
+      Aegis is the first app in <a href="https://kairos.app" target="_blank" rel="noopener">Kairos</a> - a constellation of single-purpose tools for a more present life. More coming.
+    </p>
   </div>
 </footer>
 
 <script>
+// IntersectionObserver for nav scroll state (replaces banned window.addEventListener scroll)
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
+const navSentinel = document.getElementById('nav-sentinel');
+new IntersectionObserver(
+  ([entry]) => nav.classList.toggle('scrolled', !entry.isIntersecting),
+  { threshold: 0 }
+).observe(navSentinel);
 
-const observer = new IntersectionObserver((entries) => {
+// Scroll-reveal for all sections
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// Trigger hero reveals immediately (above the fold)
 document.querySelectorAll('.hero .reveal').forEach(el => {
   setTimeout(() => el.classList.add('visible'), 100);
 });
