@@ -469,13 +469,25 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav { padding: 16px 24px; }
-  .hero { padding: 0 24px 64px; }
-  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+  /* flex-start + top padding so content isn't buried below a too-tall hero */
+  .hero {
+    justify-content: flex-start;
+    padding: 96px 24px 64px;
+  }
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  /* smaller title so it doesn't overflow the mobile viewport */
+  .hero-title { font-size: clamp(40px, 11vw, 64px); }
   section { padding: 80px 24px; }
   .philosophy-grid,
   .aegis-feature-grid { grid-template-columns: 1fr; gap: 48px; }
   .app-screenshot-wrap { max-width: 300px; }
-  .feature-grid { max-width: 100%; }
+  /* collapse to single column so cards aren't cramped at 375px */
+  .feature-grid {
+    max-width: 100%;
+    grid-template-columns: 1fr;
+  }
+  /* last-child full-width rule no longer needed in single-column */
+  .feature-card:last-child:nth-child(odd) { grid-column: auto; }
 }
 </style>
 </head>
